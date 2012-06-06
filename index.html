@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>GX Javascript Engine</title>
+		<script type="text/javascript" src="core/GXcollision.js"></script>
+		<script type="text/javascript" src="core/GXinput.js"></script>
+		<script type="text/javascript" src="core/GXgraphics.js"></script>
+		<script type="text/javascript" src="scripts/spriteMap.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/style.css" />
+	</head>
+
+	<body>
+		Loading
+		
+		<div id="main"></div>
+		<div id="debug" style="width:1300px"></div>
+		
+		<script type="text/javascript">
+			
+			var runGame = function(){			
+			
+				setTimeout('window.location = "map1.hmtl"', 1500);
+			}
+		
+		graphics.register(new Array( sMap2, sMap3, sMap), function(){runGame()});
+		
+
+			//while(graphics.isReady() == 0){
+				
+				//Do nothing.
+				
+			//	alert("0");
+			//}
+
+		</script>
+	</body>
+
+</html> 

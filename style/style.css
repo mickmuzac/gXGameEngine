@@ -1,0 +1,11 @@
+#main{
+
+	height: 500px;
+	width: 1000px;
+	border: #000 1px solid;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+	cursor: url("../cur.gif"), pointer;
+
+}

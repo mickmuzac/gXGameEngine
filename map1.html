@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>GX Javascript Engine</title>
+		<script type="text/javascript" src="core/GXcollision.js"></script>
+		<script type="text/javascript" src="core/GXinput.js"></script>
+		<script type="text/javascript" src="core/GXgraphics.js"></script>
+		<script type="text/javascript" src="scripts/spriteMap.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/style.css" />
+	</head>
+
+	<body>
+		Test
+		
+		<div id="main"></div>
+		<div id="debug" style="width:1300px"></div>
+		
+		<script type="text/javascript">	
+			
+			var moveTo = function(obj, dest){
+			
+				//before doing path finding, let's make sure we can move a straight line
+				return true;
+			}
+		
+			var runGame = function(){
+			
+			 guy = sMap.createSprite(2, 3, "guy", 0, 0);
+			 guyd = sMap.createSprite(1, 5, "guyd", 0, 100);
+			 cat = sMap.createSprite(0, 3, "cat", 200, 200);	
+			 
+			 guy4 = sMap.createSprite(3, 3, "guy4", 0, 300);
+			 guyd4 = sMap.createSprite(2, 5, "guyd4", 0, 400);
+			 cat4 = sMap.createSprite(6, 3, "cat4", 100, 0);	
+			 
+			 dog = sMap2.createSprite(0, 0, "dog",  400, 0);				
+			 guy2 = sMap.createSprite(3, 1, "guy2", 400, 100);
+			 guyd2 = sMap.createSprite(2, 4, "guyd2", 400, 200);
+			 
+			cat2 = sMap.createSprite(1, 6, "cat2", 400, 300);		
+			tree = sMap3.createSprite(0, 0, "tree", 400, 400);
+			dog2 = sMap2.createSprite(0, 1, "dog2", 600, 200);
+			
+			graphics.display();
+			
+			input.register(cat);
+			
+			dog.animateMove(1, 3);
+			dog.animateSprite(100);
+			
+			guyd.animateMove(1, 3);
+			guyd.animateSprite(100);
+			
+			guy.animateMove(1, 3);
+			guy.animateSprite(200);
+			
+			dog2.animateMove(-1, 3);
+			dog2.animateSprite(100);
+			
+			guyd2.animateMove(-1, 3);
+			guyd2.animateSprite(100);
+			
+			cat2.animateSprite(200);
+			guy2.animateMove(-1, 3);
+			guy2.animateSprite(200);
+			cat2.animateMove(-1, 3);
+			
+			
+			
+			/* Make it so that when the user clicks on dog2, it becomes the main player */
+			dog2.eventClick(function(){
+			
+								if(dog2.isMoving())
+									dog2.stop();
+									
+								cat.register(false);
+								input.register(dog2);
+							});
+							
+			//Using getInstance() gives you unrestricted access directly to the element's DOM, thus this is equivalent to above:
+			cat.getInstance().onclick = function(){
+											
+											if(cat.isMoving())
+												cat.stop();
+												
+											dog2.register(false);
+											input.register(cat);
+										};
+										
+			/* Done making dog2/cat the main player. Please note the syntax differences with onclick and eventClick */
+			
+		//	alert(graphics.isReady());
+			
+			/* Now define what happens to an object that dog2 comes in contact with. */
+			dog2.setCollisionCallBack(function(str){
+			
+										alert('dog player hit ' + str.getName());
+										//str.stop();
+										//str.animateMove(2, 3);
+										//str.animateSprite(100);
+			
+									});
+		
+			
+		}
+		
+		graphics.register(new Array( sMap2, sMap3, sMap), function(){runGame()});
+		</script>
+	</body>
+
+</html> 
