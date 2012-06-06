@@ -1,6 +1,6 @@
 /*
 	Define your Sprite Maps here. These are example maps. 
-	they must have a global scope.
+	they must have global scope.
 */
 
 var sMap = new SpriteMap("images/moresprites.PNG",900, 50, 9, 14*4, 3, 4);
