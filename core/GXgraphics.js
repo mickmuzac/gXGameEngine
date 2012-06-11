@@ -3,6 +3,9 @@ var RIGHT = 1;
 var DOWN = 2;
 var LEFT = 3;
 
+//Leaving this value extremely small until further updates
+var framesPerSecond = 1/500;
+
 //
 var donec = 0;
 var physics = new Collision();
@@ -205,6 +208,10 @@ function Sprite(img, locX, locY, numSpX, numSpY, xOffset, yOffset, times, instan
 	var mainPlayer = false;
 	var isCollided = true;
 	
+	//Time stuff
+	var start = new Date().getTime();
+	var animStart = new Date().getTime();
+	
 	main.innerHTML += "<div id='"+instance+"'></div>";
 	var sObject = get(instance);
 	
@@ -256,8 +263,18 @@ function Sprite(img, locX, locY, numSpX, numSpY, xOffset, yOffset, times, instan
 	
 	this.move = function(dest, direction){
 		
-		var timec = new Date;
-		var savec = timec.getTime();
+		
+		var diff = (new Date().getTime() - start) * .001;
+		get("debug").innerHTML = diff + " -- " + framesPerSecond;
+		
+		if( diff < framesPerSecond){
+			return;
+			
+		}
+		
+		else
+			start = new Date().getTime();
+		
 		if(direction == undefined) direction = 'x';
 		
 		if(direction == 'x'){
@@ -311,20 +328,27 @@ function Sprite(img, locX, locY, numSpX, numSpY, xOffset, yOffset, times, instan
 	
 	this.changeSprite = function(){
 	
+		if((new Date().getTime() - animStart) / 1000 < framesPerSecond)
+			return;
+			
+		else
+			animStart = new Date().getTime();
+	
 		if(num + current > sWidth) current = 0;
 		else current += num;
 		var tempCurrent = current+xOffset;
 		sObject.style.background = "url('"+img+"') -"+tempCurrent+"px -"+yOffset+"px";
 	}
 	
-	this.animateSprite = function(wait){
+	this.animateSprite = function(speed){
 		
-		intervalSprite = setInterval(saveInstance+".changeSprite()", wait);
+		
+		intervalSprite = setInterval(saveInstance+".changeSprite()", speed);
 	}
 	
-	this.animateMove = function(distance, wait){
+	this.animateMove = function(distance){
 		
-		intervalMove = setInterval(saveInstance+".move("+distance+")", wait);
+		intervalMove = setInterval(saveInstance+".move("+distance+")", 1);
 	}
 	
 	this.stopMove = function(){
